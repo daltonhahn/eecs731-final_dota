@@ -1,0 +1,19 @@
+# CELL 1
+
+def collect_picks(row):
+    picks = []
+    json_string = row["picks_bans"]
+    json_string = ast.literal_eval(json_string.replace("'",'"'))
+    data = json.loads(json.dumps(json_string))
+    picks = [data[v]['hero_id'] for v in range(len(data)) if data[v]['is_pick'] == True]
+    return picks
+
+------------------------------
+# CELL 2
+
+heroes_lists = []
+
+for index,row in df_int.iterrows():
+    row = row.copy()
+    picks = collect_picks(row)
+    heroes_lists.append(picks)
